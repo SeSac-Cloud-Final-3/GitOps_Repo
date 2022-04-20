@@ -16,7 +16,7 @@ node {
                     sh "cat ${MANIFEST}.yaml"
                     sh "git add ."
                     sh "git commit -m 'GitOps Repo Update by Jenkins num:${env.BUILD_NUMBER}'"
-                    sh "git push --force https://${GIT_PASSWORD}@github.com/SeSac-Cloud-Final-3/monkey-stock.git HEAD:main"
+                    sh "git push --force https://${GIT_PASSWORD}@github.com/SeSac-Cloud-Final-3/GitOps_Repo.git HEAD:main"
                 }
             }
         }
