@@ -1,41 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: community
-  namespace: monkey-ingress-alb
+  name: community-deployment
+  namespace: monkey-space
   labels:
-    service: community
-    project: monkeystock
+    app: community
 spec:
   replicas: 2
   selector:
     matchLabels:
-      service: community
-      project: monkeystock
+      app: community
   template:
     metadata:
       labels:
-        service: community
-        project: monkeystock
+        app: community
     spec:
       containers:
       - name: community
         image: dev210/monkey-community:latest
-        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
-        
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: "your DB_HOST"
+        - name: DB_USER
+          value: "your DB_USER"
+        - name: DB_PASSWORD
+          value: "your DB_PASSWORD"
+        - name: DATABASE
+          value: "your DATABASE"
+        resources: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: alb-service
-  namespace: monkey-ingress-alb
+  name: community-service
+  namespace: monkey-space
 spec:
-  ports:
-    - port: 80
-      targetPort: 8080
-      protocol: TCP
-  type: NodePort
+  type: LoadBalancer
   selector:
-    service: community
+    app: community
+  ports:
+  - port: 8081
+    targetPort: 80

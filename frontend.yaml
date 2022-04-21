@@ -1,41 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
-  namespace: monkey-ingress-alb
+  name: frontend-deployment
+  namespace: monkey-space
   labels:
-    service: frontend
-    project: monkeystock
+    app: frontend
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      service: frontend
-      project: monkeystock
+      app: frontend
   template:
     metadata:
       labels:
-        service: frontend
-        project: monkeystock
+        app: frontend
     spec:
       containers:
       - name: frontend
         image: dev210/monkey-frontend:latest
-        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 80
+        resources: {}
         
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: alb-service
-  namespace: monkey-ingress-alb
+  name: frontend-service
+  namespace: monkey-space
 spec:
-  ports:
-    - port: 80
-      targetPort: 8080
-      protocol: TCP
-  type: NodePort
+  type: LoadBalancer
   selector:
-    service: frontend
+    app: frontend
+  ports:
+  - port: 3000
+    targetPort: 80
