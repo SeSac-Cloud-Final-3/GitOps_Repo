@@ -2,44 +2,43 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: community-deployment
-  namespace: monkey-space
-  labels:
-    app: community
+  namespace: monkey-ingress
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: community
+      app.kubernetes.io/name: community
   template:
     metadata:
       labels:
-        app: community
+        app.kubernetes.io/name: community
     spec:
       containers:
       - name: community
         image: dev210/monkey-community:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8081
         env:
         - name: DB_HOST
-          value: "your DB_HOST"
+          value: "monkey-community.crxm811ebs75.ap-northeast-2.rds.amazonaws.com"
         - name: DB_USER
-          value: "your DB_USER"
+          value: "admin"
         - name: DB_PASSWORD
-          value: "your DB_PASSWORD"
+          value: "monkey321"
         - name: DATABASE
-          value: "your DATABASE"
+          value: "monkeyCommunity"
         resources: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: community-service
-  namespace: monkey-space
+  namespace: monkey-ingress
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
-    app: community
+    app.kubernetes.io/name: community
   ports:
   - port: 8081
-    targetPort: 80
+    targetPort: 8081
+    protocol: TCP

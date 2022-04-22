@@ -2,21 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: monkey-space
-  labels:
-    app: frontend
+  namespace: monkey-ingress
 spec:
   selector:
     matchLabels:
-      app: frontend
+      app.kubernetes.io/name: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app.kubernetes.io/name: frontend
     spec:
       containers:
       - name: frontend
-        image: dev210/monkey-frontend:latest
+        image: dev210/monkey-frontend:2
         ports:
         - containerPort: 80
         resources: {}
@@ -26,11 +24,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-service
-  namespace: monkey-space
+  namespace: monkey-ingress
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
-    app: frontend
+    app.kubernetes.io/name: frontend
   ports:
-  - port: 3000
+  - port: 80
     targetPort: 80
+    protocol: TCP
