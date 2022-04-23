@@ -9,18 +9,42 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
 spec:
-  defaultBackend:
-    service:
-      name: frontend-service
-      port:
-        number: 80
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: /server1
+        path: /
         backend:
           service:
             name: community-service
             port: 
               number: 8081
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: chatbot-service
+            port: 
+              number: 8000
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: stock-service
+            port: 
+              number: 8080
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: stock-db-svc
+            port: 
+              number: 3306
+status:
+  loadBalancer: {}

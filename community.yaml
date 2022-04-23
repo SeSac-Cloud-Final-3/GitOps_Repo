@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: community
-        image: dev210/monkey-community:latest
+        image: dev210/monkey-community:7
         ports:
-        - containerPort: 8081
+        - containerPort: 80
         env:
         - name: DB_HOST
           value: "monkey-community.crxm811ebs75.ap-northeast-2.rds.amazonaws.com"
@@ -40,5 +40,5 @@ spec:
     app.kubernetes.io/name: community
   ports:
   - port: 8081
-    targetPort: 8081
+    targetPort: 80
     protocol: TCP
