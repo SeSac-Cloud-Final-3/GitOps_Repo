@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: crawler
-          image: slowlight50/stock-crawler:4
+          image: slowlight50/stock-crawler:8
           env:
           - name: key
             value: "AKIA4JCZIACQGPXH52HC"
