@@ -53,5 +53,5 @@ spec:
   selector:
     app.kubernetes.io/name: stock
   ports:
-    - port: 8083
+    - port: 8080
       targetPort: 8080
