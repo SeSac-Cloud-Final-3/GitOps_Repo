@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: dev210/monkey-frontend:17
+        image: dev210/monkey-frontend:18
         ports:
         - containerPort: 80
         resources: {}
