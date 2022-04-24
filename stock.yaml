@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: stock
-          image: slowlight50/backend-stock:21
+          image: slowlight50/backend-stock:25
           ports:
             - containerPort: 8080
           env:
