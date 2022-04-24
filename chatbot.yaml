@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: chatbot
-        image: gyus13/chatbotapp:7
+        image: gyus13/chatbotapp:12
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
