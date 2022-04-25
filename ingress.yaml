@@ -1,12 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-alb
+  name: ingress-alb-frontend
   namespace: monkey-ingress
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
 spec:
   rules:
@@ -19,33 +21,23 @@ spec:
             name: frontend-service
             port: 
               number: 80
-  - http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: community-service
-            port: 
-              number: 8081
-  - http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: chatbot-service
-            port: 
-              number: 8000
-  - http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: stock-service
-            port: 
-              number: 8080
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-stock-db
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 3306}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
   - http:
       paths:
       - pathType: Prefix
@@ -57,3 +49,82 @@ spec:
               number: 3306
 status:
   loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-stock-service
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8080}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: stock-service
+            port: 
+              number: 8080
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-chatbot
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8000}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: chatbot-service
+            port: 
+              number: 8000
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-community
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8081}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: community-service
+            port: 
+              number: 8081
+status:
+  loadBalancer: {}
+---
