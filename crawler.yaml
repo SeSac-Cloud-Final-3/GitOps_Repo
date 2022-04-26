@@ -4,7 +4,6 @@ metadata:
   name: crawler-deployment
   namespace: monkey-ingress
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: crawler
