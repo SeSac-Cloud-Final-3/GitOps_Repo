@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-stock-db
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 3306}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: stock-db-svc
+            port: 
+              number: 3306
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-alb-stock-service
+  namespace: monkey-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monkey
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8080}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: stock-service
+            port: 
+              number: 8080
+status:
+  loadBalancer: {}

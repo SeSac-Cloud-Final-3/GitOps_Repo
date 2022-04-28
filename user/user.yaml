@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: community-deployment
+  name: user-deployment
   namespace: monkey-ingress
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: community
+      app.kubernetes.io/name: user
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: community
+        app.kubernetes.io/name: user
     spec:
       containers:
-      - name: community
-        image: dev210/monkey-community:7
+      - name: user
+        image: dev210/monkey-user:latest
         ports:
         - containerPort: 80
         env:
@@ -32,13 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: community-service
+  name: user-service
   namespace: monkey-ingress
 spec:
   type: NodePort
   selector:
-    app.kubernetes.io/name: community
+    app.kubernetes.io/name: user
   ports:
-  - port: 8081
+  - port: 8082
     targetPort: 80
     protocol: TCP
