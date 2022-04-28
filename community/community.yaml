@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: community
-        image: dev210/monkey-community:latest
+        image: dev210/monkey-community:1
         ports:
         - containerPort: 80
         env:
