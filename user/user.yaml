@@ -27,6 +27,8 @@ spec:
           value: "monkey321"
         - name: DATABASE
           value: "monkeyCommunity"
+        - name: SECRET
+          value: "SESACSESACSESACSESACSESACSESACSESACSESACSESACSESACSESAC"
         resources: {}
 ---
 apiVersion: v1
