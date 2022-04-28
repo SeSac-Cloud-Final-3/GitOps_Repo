@@ -8,7 +8,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: monkey
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8081}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8082}]'
     alb.ingress.kubernetes.io/subnets: subnet-0a1f627ec5c82b98d, subnet-04915f62bed9eedda
 spec:
   rules:
