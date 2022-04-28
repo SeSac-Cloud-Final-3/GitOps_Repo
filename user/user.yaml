@@ -20,13 +20,13 @@ spec:
         - containerPort: 80
         env:
         - name: DB_HOST
-          value: "monkey-community.crxm811ebs75.ap-northeast-2.rds.amazonaws.com"
+          value: "monkey-user.crxm811ebs75.ap-northeast-2.rds.amazonaws.com"
         - name: DB_USER
           value: "admin"
         - name: DB_PASSWORD
           value: "monkey321"
         - name: DATABASE
-          value: "monkeyCommunity"
+          value: "monkeyUser"
         - name: SECRET
           value: "SESACSESACSESACSESACSESACSESACSESACSESACSESACSESACSESAC"
         resources: {}
