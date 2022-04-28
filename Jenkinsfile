@@ -8,11 +8,7 @@ node {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 withCredentials([
                     usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME'),
-                    usernamePassword(credentialsId: 'github-email', usernameVariable: 'GIT_EMAIL')
                 ]) {
-                    sh "git config user.email ${GIT_EMAIL}"
-                    sh "git config user.name ${GIT_USERNAME}"
-
                     sh "cat ./${MANIFEST}/${MANIFEST}.yaml"
                     sh "sed -i 's+${DOCKERIMAGE}.*+${DOCKERIMAGE}:${DOCKERTAG}+g' ${MANIFEST}.yaml"
                     sh "cat ./${MANIFEST}/${MANIFEST}.yaml"
