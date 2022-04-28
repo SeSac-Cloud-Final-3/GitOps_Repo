@@ -1,10 +1,4 @@
 node {
-
-    environment {
-        GIT_EMAIL_CREDS = credentials('github-email')
-        GIT_EMAIL = "${GIT_EMAIL_CREDS_USR}"
-    }
-    
     stage('Clone Repository') {
         checkout scm
     }
@@ -12,7 +6,10 @@ node {
     stage('Update GitOps Repo') {
         script {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                withCredentials([
+                    usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME'),
+                    usernamePassword(credentialsId: 'github-email', usernameVariable: 'GIT_EMAIL')
+                ]) {
                     sh "git config user.email ${GIT_EMAIL}"
                     sh "git config user.name ${GIT_USERNAME}"
 
