@@ -17,7 +17,7 @@ spec:
         image: dev210/monkey-jenkins:2.0
         ports:
         - containerPort: 8080
-        volumes:
+        volumes: 
         - /var/run/docker.sock:/var/run/docker.sock
         resources: {}
         
