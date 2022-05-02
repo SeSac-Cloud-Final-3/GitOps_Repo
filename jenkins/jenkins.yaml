@@ -15,7 +15,7 @@ spec:
       volumes:
       - name: docker-sock
         hostPath:
-          path: "/var/run/docker.sock"
+          path: /var/run/docker.sock
           type: File
       containers:
       - name: jenkins
@@ -25,7 +25,6 @@ spec:
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-sock
-          readOnly: false
         resources: {}
         
 ---
