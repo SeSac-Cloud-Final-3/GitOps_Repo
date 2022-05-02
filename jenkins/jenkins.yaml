@@ -13,18 +13,17 @@ spec:
         app.kubernetes.io/name: jenkins
     spec:
       volumes:
-      - name: docker-sock
+      - name: dockersock
         hostPath:
           path: /var/run/docker.sock
-          type: File
       containers:
       - name: jenkins
         image: dev210/monkey-jenkins:2.0
         ports:
         - containerPort: 8080
         volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-sock
+        - name: dockersock
+          mountPath: "/var/run/docker.sock"
         resources: {}
         
 ---
