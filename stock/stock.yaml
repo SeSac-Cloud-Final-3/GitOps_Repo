@@ -20,15 +20,15 @@ spec:
             - containerPort: 8080
           env:
           - name: MYSQL_DB_HOST
-            value: "stock-db-svc"
+            value: "monkey-stock-db.crxm811ebs75.ap-northeast-2.rds.amazonaws.com"
           - name: MYSQL_DB_PORT
             value: "3306"
           - name: MYSQL_DB_USER
-            value: "user"
+            value: "admin"
           - name: MYSQL_DB_PASSWORD
-            value: "password"
+            value: "monkey123"
           - name: MYSQL_DB
-            value: "monkeybusiness"
+            value: "monkeyStock"
           - name: MYSQL_ENV
             value: "useUnicode=true&rewriteBatchedStatements=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul"
           - name: AWS_ACCESS_KEY
