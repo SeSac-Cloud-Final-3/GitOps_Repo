@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: dev210/monkey-user:1
+        image: dev210/monkey-user:2
         ports:
         - containerPort: 80
         env:
